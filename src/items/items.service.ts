@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Item } from './item.entity';
 
 @Injectable()
 export class ItemsService {
+    items: any;
   
   constructor(
     @InjectRepository(Item)
@@ -26,6 +27,16 @@ export class ItemsService {
 
   return this.itemsRepository.save(item);
 }
+
+removeStock(id: number, amount: number) {
+  const item = this.items.find((i: { id: number; }) => i.id === id);
+  if (!item) throw new NotFoundException('Item not found');
+  if (item.stock - amount < 0) throw new BadRequestException('Stock cannot be negative');
+
+  item.stock -= amount;
+  return item;
+}
+
   create(data: any) {
     const item = this.itemsRepository.create(data);
     return this.itemsRepository.save(item);
