@@ -54,4 +54,6 @@ export class ItemsService {
     this.items.splice(index, 1);
     return { message: 'Item deleted successfully' };
   }
+
+  
 }

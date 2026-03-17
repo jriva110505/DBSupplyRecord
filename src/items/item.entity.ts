@@ -9,8 +9,14 @@ export class Item {
   name!: string;
 
   @Column()
+  img!: string;
+
+  @Column()
   stock!: number;
 
   @Column()
   level!: string;
+
+  @Column({ nullable: true })
+  variants!: string;
 }
