@@ -3,4 +3,5 @@ export class CreateItemDto {
   level!: string;
   stock!: number;
   image!: string;
+  variants?: string;
 }
