@@ -5,6 +5,7 @@ import { Item } from './item.entity';
 
 @Injectable()
 export class ItemsService {
+  
   constructor(
     @InjectRepository(Item)
     private itemsRepository: Repository<Item>,
@@ -14,12 +15,24 @@ export class ItemsService {
     return this.itemsRepository.find();
   }
 
-  async updateStock(id: number, newStock: number): Promise<Item> {
-    const item = await this.itemsRepository.findOneBy({ id });
-    if (!item) {
-      throw new Error('Item not found');
-    }
-    item.stock = newStock;
+  async addStock(id: number, amount: number) {
+  const item = await this.itemsRepository.findOne({ where: { id } });
+
+  if (!item) {
+    throw new Error('Item not found');
+  }
+
+  item.stock += amount;
+
+  return this.itemsRepository.save(item);
+}
+  create(data: any) {
+    const item = this.itemsRepository.create(data);
     return this.itemsRepository.save(item);
   }
+
+  async delete(id: number) {
+  return this.itemsRepository.delete(id);
+}
+
 }
