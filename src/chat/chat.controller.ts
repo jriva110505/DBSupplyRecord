@@ -1,3 +1,4 @@
+// chat.controller.ts
 import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 import { ChatService } from './chat.service';
 
@@ -5,13 +6,20 @@ import { ChatService } from './chat.service';
 export class ChatController {
   constructor(private chatService: ChatService) {}
 
+  // Send message
   @Post()
   send(@Body() body: any) {
     return this.chatService.sendMessage(body);
   }
 
+  // Get messages for one student
   @Get()
   get(@Query('studentId') studentId: string) {
-    return this.chatService.getMessages(studentId);
+    if (studentId) {
+      return this.chatService.getMessages(studentId);
+    }
+    // Or return all conversations
+    return this.chatService.getAllConversations();
   }
+
 }
