@@ -13,8 +13,8 @@ import { ConfigModule } from '@nestjs/config';
       type: 'mysql',
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT || '20870'),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities: [Message],
       synchronize: true, // auto-create tables
