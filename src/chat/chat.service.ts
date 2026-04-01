@@ -31,13 +31,16 @@ export class ChatService {
 
   // Get all conversations (Messenger-style)
   async getAllConversations() {
-    // Fetch the last message per student
-    return this.messageRepository
-      .createQueryBuilder('message')
-      .select(['message.studentId', 'message.studentName'])
-      .addSelect('MAX(message.createdAt)', 'lastMessageAt')
-      .groupBy('message.studentId')
-      .orderBy('lastMessageAt', 'DESC')
-      .getRawMany();
-  }
+  return this.messageRepository
+    .createQueryBuilder('message')
+    .select([
+      'message.studentId',
+      'message.studentName',
+    ])
+    .addSelect('MAX(message.createdAt)', 'lastMessageAt')
+    .groupBy('message.studentId')
+    .addGroupBy('message.studentName') // ✅ THIS LINE FIXES IT
+    .orderBy('lastMessageAt', 'DESC')
+    .getRawMany();
+}
 }
