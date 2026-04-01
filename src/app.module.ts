@@ -4,6 +4,7 @@ import { ItemsModule } from './items/items.module';
 import { ChatModule } from './chat/chat.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Message } from './chat/chat.entity';
+import { Item } from './items/items.entity'; // <-- add Item
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -16,8 +17,9 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
-      entities: [Message],
+      entities: [Message, Item], // <-- include Item here
       synchronize: true, // auto-create tables
+      ssl: { rejectUnauthorized: false }, // required for Aiven
     }),
     DatabaseModule,
     ItemsModule,
