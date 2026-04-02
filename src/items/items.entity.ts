@@ -15,8 +15,8 @@ export class Item {
   @Column({ default: 0 })
   stock!: number;
 
-    @Column({ default: 'normal' })
-    level!: string;
+   @Column()
+level!: string;
 
   @Column({ type: 'json', nullable: true })
   variants!: { type: string; stock: number }[];
