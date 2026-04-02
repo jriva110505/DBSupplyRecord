@@ -15,7 +15,7 @@ export class Item {
   @Column({ default: 0 })
   stock!: number;
 
-   @Column()
+   @Column(["1st Level", "2nd Level", "3rd Level", "4th Level", "Others"])
 level!: string;
 
   @Column({ type: 'json', nullable: true })
