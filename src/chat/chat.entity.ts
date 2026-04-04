@@ -11,12 +11,15 @@ export class Message {
   @Column()
   studentName!: string;
 
-  @Column()
+  @Column('text')
   text!: string;
 
-  @Column()
-  sender!: string;
+  @Column({ type: 'enum', enum: ['user', 'admin', 'system'] })
+  sender!: 'user' | 'admin' | 'system';
 
-  @CreateDateColumn()
+  @Column({ default: false })
+  isRead!: boolean;
+
+  @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 }
