@@ -11,14 +11,20 @@ export class ChatService {
   ) {}
 
   async sendMessage(data: {
-    studentId: string;
-    studentName: string;
-    text: string;
-    sender: string;
-  }): Promise<Message> {
-    const msg = this.messageRepository.create(data);
-    return this.messageRepository.save(msg);
+  studentId: string;
+  studentName: string;
+  text: string;
+  sender: string;
+}): Promise<Message> {
+
+  // 🚨 Prevent saving bad data
+  if (!data.studentId || !data.text || !data.sender) {
+    throw new Error('Invalid message data');
   }
+
+  const msg = this.messageRepository.create(data);
+  return this.messageRepository.save(msg);
+}
 
   async getAllMessages(): Promise<Message[]> {
     return this.messageRepository.find({
