@@ -8,19 +8,20 @@ export class Item {
   @Column()
   name!: string;
 
-  // ✅ match DB column name
   @Column({ nullable: true, default: "" })
   image!: string;
 
   @Column({ default: 0 })
   stock!: number;
 
-  @Column({ type: 'varchar', length: 50, nullable: true })
-level!: string;
+  // ✅ set default to avoid null
+  @Column({ type: 'varchar', length: 50, default: "1st Level" })
+  level!: string;
 
-  @Column({ type: 'json', nullable: true })
+  // ✅ JSON defaults to empty array
+  @Column({ type: 'json', nullable: false, default: '[]' })
   variants!: { type: string; stock: number }[];
 
-  @Column({ type: 'json', nullable: true })
+  @Column({ type: 'json', nullable: false, default: '[]' })
   serials!: { serial: string }[];
 }
