@@ -14,14 +14,12 @@ export class Item {
   @Column({ default: 0 })
   stock!: number;
 
-  // ✅ set default to avoid null
   @Column({ type: 'varchar', length: 50, default: "1st Level" })
   level!: string;
 
-  // ✅ JSON defaults to empty array
-  @Column({ type: 'json', nullable: false, default: '[]' })
+  @Column({ type: 'json', nullable: true })
   variants!: { type: string; stock: number }[];
 
-  @Column({ type: 'json', nullable: false, default: '[]' })
+  @Column({ type: 'json', nullable: true })
   serials!: { serial: string }[];
 }
