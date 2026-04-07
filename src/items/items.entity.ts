@@ -9,7 +9,7 @@ export class Item {
   name!: string;
 
   // ✅ match DB column name
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: "" })
   image!: string;
 
   @Column({ default: 0 })
