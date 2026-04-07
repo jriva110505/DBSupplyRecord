@@ -10,16 +10,22 @@ export class ItemsService {
   const item = await this.repo.findOneBy({ id });
   if (!item) return null;
 
-  item.stock += amount;
-  return this.repo.save(item);
+  const newStock = item.stock + amount;
+
+    await this.repo.update(id, { stock: newStock });
+
+    return this.repo.findOneBy({ id });
 }
 
 async removeStock(id: number, amount: number) {
   const item = await this.repo.findOneBy({ id });
   if (!item) return null;
 
-  item.stock = Math.max(0, item.stock - amount);
-  return this.repo.save(item);
+ const newStock = Math.max(0, item.stock - amount);
+
+      await this.repo.update(id, { stock: newStock });
+
+      return this.repo.findOneBy({ id });
 }
 
   constructor(
@@ -35,7 +41,10 @@ async removeStock(id: number, amount: number) {
   findAll() {
   return this.repo.find().then(items =>
     items.map(item => ({
-      ...item,
+      id: item.id,
+      name: item.name,
+      image: item.image,
+      level: item.level,
       variants: item.variants || [],
       serials: item.serials || [],
       stock: item.variants?.length
