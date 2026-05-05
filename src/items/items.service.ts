@@ -65,7 +65,7 @@ export class ItemsService {
       itemType: data.itemType ?? 'consumable',
 
       stock:
-        data.itemType === 'non_consumable' ? 0 : data.stock ?? 0,
+        data.itemType === 'non_consumable' ? 1 : data.stock ?? 1,
 
       variants: JSON.stringify(data.variants ?? []),
 
