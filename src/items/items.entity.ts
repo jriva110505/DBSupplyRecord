@@ -21,7 +21,6 @@ export class Item {
   name: 'item_type', // ✅ MUST match DB
   type: 'enum',
   enum: ['consumable', 'non_consumable'],
-  default: 'consumable',
 })
 itemType!: 'consumable' | 'non_consumable';
 
