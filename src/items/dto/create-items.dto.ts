@@ -1,24 +1,37 @@
-import { IsString, IsNotEmpty, IsIn } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsNumber,
+  IsArray,
+} from 'class-validator';
 
 export class CreateItemDto {
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  name!: string;
+  name?: string;
 
+  @IsOptional()
+  @IsString()
   image?: string;
+
+  @IsOptional()
+  @IsNumber()
   stock?: number;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  @IsIn(["1st Level", "2nd Level", "3rd Level", "4th Level", "Others"])
-  level!: string;
+  level?: string;
 
-  variants?: {
-    type: string;
-    stock: number;
-  }[];
+  @IsOptional()
+  @IsEnum(['consumable', 'non_consumable'])
+  itemType?: 'consumable' | 'non_consumable';
 
-  serials?: {
-    serial: string;
-  }[];
+  @IsOptional()
+  @IsArray()
+  variants?: any[];
+
+  @IsOptional()
+  @IsArray()
+  serials?: any[];
 }

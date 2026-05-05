@@ -17,9 +17,17 @@ export class Item {
   @Column({ type: 'varchar', length: 50, default: "1st Level" })
   level!: string;
 
-  @Column({ type: 'json', nullable: true })
-  variants!: { type: string; stock: number }[];
+@Column({
+  name: 'item_type', // ✅ MUST match DB
+  type: 'enum',
+  enum: ['consumable', 'non_consumable'],
+  default: 'consumable',
+})
+itemType!: 'consumable' | 'non_consumable';
 
-  @Column({ type: 'json', nullable: true })
-  serials!: { serial: string }[];
+@Column({ type: 'text', nullable: true })
+variants!: string;
+
+@Column({ type: 'text', nullable: true })
+serials!: string;
 }

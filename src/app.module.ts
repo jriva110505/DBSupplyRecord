@@ -18,7 +18,8 @@ import { ConfigModule } from '@nestjs/config';
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities: [Message, Item], // <-- include Item and Borrow here
-      synchronize: false, // auto-create tables
+      synchronize: false,
+      logging: true, // auto-create tables
       ssl: { rejectUnauthorized: false }, // required for Aiven
     }),
     DatabaseModule,
